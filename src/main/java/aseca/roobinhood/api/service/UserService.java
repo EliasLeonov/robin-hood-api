@@ -9,28 +9,24 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class UserService {
-    private final UserRepository repository;
+    private final UserRepository userRepository;
 
     @Autowired
     public UserService(UserRepository userRepository) {
-        this.repository = userRepository;
+        this.userRepository = userRepository;
     }
 
     public UserDto save(CreateUserDto userDto){
-        return repository
-                .save(UserFactory.createUser(userDto))
-                .toDto();
+        return UserDto.from(userRepository.save(UserFactory.createUser(userDto)));
     }
 
     public UserDto update(UserDto userDto){
-        return repository
-                .save(UserFactory.updateUser(userDto))
-                .toDto();
+        return UserDto.from(userRepository.save(UserFactory.updateUser(userDto)));
     }
 
-    public Boolean delete(Long id){
-        repository.deleteById(id);
-        return repository.existsById(id);
+    public boolean delete(Long id){
+        userRepository.deleteById(id);
+        return userRepository.existsById(id);
     }
 
 

@@ -12,25 +12,25 @@ import javax.validation.Valid;
 @RequestMapping("/user")
 public class UserController {
 
-    private final UserService service;
+    private final UserService userService;
 
     @Autowired
-    public UserController(UserService service) {
-        this.service = service;
+    public UserController(UserService userService) {
+        this.userService = userService;
     }
 
     @PostMapping("/save")
     public UserDto save(@RequestBody @Valid CreateUserDto userDto){
-        return service.save(userDto);
+        return userService.save(userDto);
     }
 
     @PostMapping("/update")
     public UserDto update(@RequestBody @Valid UserDto userDto){
-        return service.update(userDto);
+        return userService.update(userDto);
     }
 
     @DeleteMapping("/delete/{id}")
     public Boolean delete(@PathVariable(name = "id") @Valid Long id){
-        return service.delete(id);
+        return userService.delete(id);
     }
 }

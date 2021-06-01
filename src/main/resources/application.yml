@@ -1,0 +1,18 @@
+server:
+  error:
+    include-message: always
+  port: 8080
+
+spring:
+  jpa:
+    hibernate:
+      ddl-auto: create
+    database: postgresql
+    show-sql: true
+    generate-ddl: true
+
+  datasource:
+    url: jdbc:postgresql://localhost:5431/robinhood
+    username: robinhoodAseca
+    password: robinhood
+    driver-class-name: org.postgresql.Driver
