@@ -1,5 +1,6 @@
-package aseca.roobinhood.api.domain;
+package aseca.roobinhood.api.domain.auth;
 
+import aseca.roobinhood.api.domain.User;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

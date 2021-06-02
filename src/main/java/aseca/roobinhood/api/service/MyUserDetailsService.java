@@ -1,6 +1,6 @@
 package aseca.roobinhood.api.service;
 
-import aseca.roobinhood.api.domain.MyUserDetails;
+import aseca.roobinhood.api.domain.auth.MyUserDetails;
 import aseca.roobinhood.api.domain.User;
 import aseca.roobinhood.api.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,9 +11,12 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class MyUserDetailsService implements UserDetailsService {
+    final UserRepository userRepository;
 
     @Autowired
-    UserRepository userRepository;
+    public MyUserDetailsService(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
 
     @Override
     public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {

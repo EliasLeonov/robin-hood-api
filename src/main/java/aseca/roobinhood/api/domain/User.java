@@ -3,7 +3,6 @@ package aseca.roobinhood.api.domain;
 import lombok.*;
 
 import javax.persistence.*;
-import java.util.Set;
 
 @EqualsAndHashCode(callSuper = true)
 @NoArgsConstructor
@@ -19,6 +18,4 @@ public class User extends AbstractEntity {
     private String username;
     private String password;
     private String role;
-    @OneToMany(cascade = CascadeType.ALL)
-    private Set<Stock> stocks;
 }

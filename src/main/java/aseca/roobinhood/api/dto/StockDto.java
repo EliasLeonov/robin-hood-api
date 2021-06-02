@@ -1,4 +1,4 @@
-package aseca.roobinhood.api.domain.dto;
+package aseca.roobinhood.api.dto;
 
 import aseca.roobinhood.api.domain.Stock;
 import lombok.AllArgsConstructor;
@@ -18,8 +18,6 @@ public class StockDto {
     public static StockDto from(Stock stock) {
         return StockDto.builder()
                 .id(stock.getId())
-                .value(stock.getValue())
-                .company(stock.getCompany())
                 .build();
     }
 }

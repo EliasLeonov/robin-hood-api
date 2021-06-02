@@ -1,4 +1,4 @@
-package aseca.roobinhood.api.domain.dto;
+package aseca.roobinhood.api.dto.security;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

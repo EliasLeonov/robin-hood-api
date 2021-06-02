@@ -1,4 +1,4 @@
-package aseca.roobinhood.api.domain;
+package aseca.roobinhood.api.dto.security;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-public class AuthenticationRequest {
+public class AuthenticationRequestDto {
     private String username;
     private String password;
 }

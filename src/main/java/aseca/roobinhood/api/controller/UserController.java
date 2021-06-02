@@ -1,7 +1,7 @@
 package aseca.roobinhood.api.controller;
 
-import aseca.roobinhood.api.domain.dto.CreateUserDto;
-import aseca.roobinhood.api.domain.dto.UserDto;
+import aseca.roobinhood.api.dto.security.CreateUserDto;
+import aseca.roobinhood.api.dto.UserDto;
 import aseca.roobinhood.api.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
