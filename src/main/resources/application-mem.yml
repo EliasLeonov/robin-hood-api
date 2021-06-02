@@ -1,0 +1,23 @@
+server:
+  error:
+    include-message: always
+  port: 8080
+
+spring:
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.H2Dialect
+    hibernate:
+      ddl-auto: none
+    show-sql: true
+
+  h2:
+    console:
+      enabled: true
+
+  datasource:
+    url: "jdbc:h2:mem:testdb;DB_CLOSE_DELAY=-1"
+    username: robinhoodAseca
+    password: robinhood
+    driver-class-name: org.h2.Driver
