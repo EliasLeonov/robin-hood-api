@@ -15,6 +15,10 @@ import java.util.Set;
 public class User extends AbstractEntity {
     private String name;
     private String lastname;
+    private String email;
+    private String username;
+    private String password;
+    private String role;
     @OneToMany(cascade = CascadeType.ALL)
     private Set<Stock> stocks;
 }
