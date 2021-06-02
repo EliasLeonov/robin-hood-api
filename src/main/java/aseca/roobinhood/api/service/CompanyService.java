@@ -1,6 +1,6 @@
 package aseca.roobinhood.api.service;
 
-import aseca.roobinhood.api.domain.CompanyDto;
+import aseca.roobinhood.api.dto.CompanyDto;
 import org.springframework.stereotype.Service;
 
 import java.util.Set;

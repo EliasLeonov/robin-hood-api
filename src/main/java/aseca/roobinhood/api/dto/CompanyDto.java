@@ -1,5 +1,6 @@
-package aseca.roobinhood.api.domain;
+package aseca.roobinhood.api.dto;
 
+import aseca.roobinhood.api.domain.Ticker;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

@@ -1,8 +1,7 @@
 package aseca.roobinhood.api.controller;
 
-import aseca.roobinhood.api.domain.CompanyDto;
+import aseca.roobinhood.api.dto.CompanyDto;
 import aseca.roobinhood.api.service.CompanyService;
-import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
