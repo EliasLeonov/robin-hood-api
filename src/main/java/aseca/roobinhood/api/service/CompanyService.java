@@ -31,7 +31,7 @@ public class CompanyService {
             try {
                 final Stock stock = stockScrapperService.getStock(ticker);
                 final StockQuote quote = stock.getQuote();
-                return new CompanyDto(ticker, quote.getPrice().doubleValue(), quote.getChangeInPercent().doubleValue());
+                return new CompanyDto(ticker, stock.getName(), quote.getPrice().doubleValue(), quote.getChangeInPercent().doubleValue());
             } catch (IOException e) {
                 e.printStackTrace();
             }
