@@ -5,10 +5,11 @@ import aseca.roobinhood.api.dto.security.CreateUserDto;
 import aseca.roobinhood.api.service.AuthenticationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
 import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
+@RequestMapping("/auth")
 public class AuthenticationController {
 
     final AuthenticationService authenticationService;

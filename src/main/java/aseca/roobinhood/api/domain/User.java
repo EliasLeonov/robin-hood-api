@@ -2,7 +2,12 @@ package aseca.roobinhood.api.domain;
 
 import lombok.*;
 
-import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import java.util.HashSet;
+import java.util.Set;
 
 @EqualsAndHashCode(callSuper = true)
 @NoArgsConstructor
@@ -18,4 +23,7 @@ public class User extends AbstractEntity {
     private String username;
     private String password;
     private String role;
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
+    private Set<Transaction> transactions = new HashSet<>();
 }

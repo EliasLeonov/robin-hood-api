@@ -1,6 +1,5 @@
 package aseca.roobinhood.api.service;
 
-import aseca.roobinhood.api.domain.User;
 import aseca.roobinhood.api.dto.security.AuthenticationRequestDto;
 import aseca.roobinhood.api.dto.security.AuthenticationResponseDto;
 import aseca.roobinhood.api.dto.security.CreateUserDto;
@@ -49,7 +48,6 @@ public class AuthenticationService {
     }
 
     public void register(CreateUserDto userDto) {
-        User user = new User(userDto.getName(), userDto.getLastname(), userDto.getEmail(), userDto.getUsername(), userDto.getPassword(), "ROLE_USER");
-        userRepository.save(user);
+        userRepository.save(CreateUserDto.from(userDto));
     }
 }
