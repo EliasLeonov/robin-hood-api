@@ -12,6 +12,10 @@ public class UserFactory {
         return User.builder()
                 .name(userDto.getName())
                 .lastname(userDto.getLastname())
+                .email(userDto.getEmail())
+                .username(userDto.getUsername())
+                .password(userDto.getPassword())
+                .role("Normal")
                 .build();
     }
 
@@ -19,6 +23,9 @@ public class UserFactory {
         return User.builder()
                 .name(userDto.getName())
                 .lastname(userDto.getLastname())
+                .email(userDto.getEmail())
+                .username(userDto.getUsername())
+                .role(userDto.getRole())
                 .build();
     }
 }

@@ -20,8 +20,6 @@ public class Transaction extends AbstractEntity {
     private Ticker ticker;
     @ManyToOne(cascade = CascadeType.ALL)
     private User user;
-    @ManyToOne(cascade = CascadeType.ALL)
-    private Stock stock;
     private double price;
     private double amount;
     private LocalDateTime dateTime;
