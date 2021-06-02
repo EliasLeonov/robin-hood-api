@@ -13,13 +13,11 @@ import java.util.stream.Collectors;
 @Service
 public class CompanyService {
 
-    private final CompanyService companyService;
     private final StockScrapperService stockScrapperService;
     private final static List<String> tickers = Arrays.asList("AAPL", "TSLA", "MSFT", "BB", "GME", "AMC");
 
     @Autowired
-    public CompanyService(CompanyService companyService, StockScrapperService stockScrapperService) {
-        this.companyService = companyService;
+    public CompanyService(StockScrapperService stockScrapperService) {
         this.stockScrapperService = stockScrapperService;
     }
 

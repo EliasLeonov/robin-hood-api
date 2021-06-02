@@ -38,7 +38,7 @@ class UserControllerTest {
                 .amount(4L)
                 .price(100L)
                 .build();
-        transactionService.buyStock(transactionDto);
+//        transactionService.buyStock(transactionDto);
 
     }
 
