@@ -29,7 +29,7 @@ public class CompanyService {
         return tickers.stream().map(ticker -> {
             try {
                 final Stock stock = stockScrapperService.getStock(ticker);
-                return new CompanyDto(ticker, stock.getQuote().getPrice().doubleValue(), stock.getQuote().getPriceAvg200().doubleValue());
+                return new CompanyDto(ticker, stock.getQuote().getPrice().doubleValue(), stock.getQuote().getPriceAvg50().doubleValue());
             } catch (IOException e) {
                 e.printStackTrace();
             }
