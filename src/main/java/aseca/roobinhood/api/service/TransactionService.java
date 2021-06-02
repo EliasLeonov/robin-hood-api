@@ -4,6 +4,7 @@ import aseca.roobinhood.api.domain.Ticker;
 import aseca.roobinhood.api.domain.Transaction;
 import aseca.roobinhood.api.domain.User;
 import aseca.roobinhood.api.dto.TransactionDto;
+import aseca.roobinhood.api.dto.TransactionResponseDto;
 import aseca.roobinhood.api.exceptions.NotFoundException;
 import aseca.roobinhood.api.repository.TickerRepository;
 import aseca.roobinhood.api.repository.TransactionRepository;
@@ -26,18 +27,18 @@ public class TransactionService {
         this.userRepository = userRepository;
     }
 
-    public Transaction buyStock(TransactionDto transactionDto){
+    public TransactionResponseDto buyStock(TransactionDto transactionDto){
         Ticker ticker = tickerRepository.findById(transactionDto.getTickerDto().getId()).orElseThrow(() -> new NotFoundException("Ticker does not found"));
         User user = userRepository.findById(transactionDto.getUserId()).orElseThrow(() -> new NotFoundException("User does not found"));
         Transaction transaction = repository.save(Transaction
-                                                        .builder()
-                                                        .ticker(ticker)
-                                                        .user(user)
-                                                        .price(transactionDto.getPrice())
-                                                        .amount(transactionDto.getAmount())
-                                                        .dateTime(LocalDateTime.now())
-                                                        .build());
+                                                    .builder()
+                                                    .ticker(ticker)
+                                                    .user(user)
+                                                    .price(transactionDto.getPrice())
+                                                    .amount(transactionDto.getAmount())
+                                                    .dateTime(LocalDateTime.now())
+                                                    .build());
         tickerRepository.save(ticker);
-        return transaction;
+        return TransactionResponseDto.from(transaction);
     }
 }
