@@ -4,6 +4,7 @@ import aseca.roobinhood.api.dto.CompanyDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import yahoofinance.Stock;
+import yahoofinance.quotes.stock.StockQuote;
 
 import java.io.IOException;
 import java.util.Arrays;
@@ -29,7 +30,8 @@ public class CompanyService {
         return tickers.stream().map(ticker -> {
             try {
                 final Stock stock = stockScrapperService.getStock(ticker);
-                return new CompanyDto(ticker, stock.getQuote().getPrice().doubleValue(), stock.getQuote().getPriceAvg50().doubleValue());
+                final StockQuote quote = stock.getQuote();
+                return new CompanyDto(ticker, quote.getPrice().doubleValue(), quote.getChangeInPercent().doubleValue());
             } catch (IOException e) {
                 e.printStackTrace();
             }
