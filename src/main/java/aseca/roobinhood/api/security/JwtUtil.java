@@ -18,9 +18,12 @@ import java.util.function.Function;
 public class JwtUtil {
 
     private final String SECRET_KEY = "robin2021";
-    @Autowired
-    UserRepository userRepository;
+    private final UserRepository userRepository;
 
+    @Autowired
+    public JwtUtil(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
 
     public String extractUsername(String token) {
         return extractClaim(token, Claims::getSubject);
@@ -65,7 +68,4 @@ public class JwtUtil {
         return user.getRole();
     }
 
-    public User getUser(String token) {
-        return userRepository.findByUsername(extractUsername(token));
-    }
 }

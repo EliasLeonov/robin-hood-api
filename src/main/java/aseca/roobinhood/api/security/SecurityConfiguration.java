@@ -3,7 +3,6 @@ package aseca.roobinhood.api.security;
 import aseca.roobinhood.api.service.MyUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
-import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -21,11 +20,14 @@ import org.springframework.web.filter.CorsFilter;
 @EnableWebSecurity
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
-    @Autowired
-    private MyUserDetailsService myUserDetailsService;
+    private final MyUserDetailsService myUserDetailsService;
+    private final JwtRequestFilter jwtRequestFiler;
 
     @Autowired
-    private JwtRequestFilter jwtRequestFiler;
+    public SecurityConfiguration(MyUserDetailsService myUserDetailsService, JwtRequestFilter jwtRequestFiler) {
+        this.myUserDetailsService = myUserDetailsService;
+        this.jwtRequestFiler = jwtRequestFiler;
+    }
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
@@ -39,11 +41,10 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers("/user").authenticated()
                 .antMatchers("/").permitAll()
-                .antMatchers(HttpMethod.POST,"/register").permitAll()
-                .antMatchers(HttpMethod.POST,"/login").permitAll()
+                .antMatchers("/auth/register").permitAll()
+                .antMatchers("/auth/login").permitAll()
                 .antMatchers("/v2/api-docs", "/configuration/ui", "/swagger-resources", "/configuration/security", "/swagger-ui.html", "/webjars/**","/swagger-resources/configuration/ui","/swagger-ui.html").permitAll()
-                .anyRequest().authenticated()
-                .and().sessionManagement()
+                .anyRequest().authenticated().and().sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
         http.addFilterBefore(jwtRequestFiler, UsernamePasswordAuthenticationFilter.class);
     }
