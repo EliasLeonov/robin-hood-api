@@ -14,6 +14,7 @@ import java.util.Set;
 @Entity
 @Table(name = "ticker")
 public class Ticker extends AbstractEntity {
+    private String tickerName;
     private String companyName;
 
     @ManyToOne(cascade = CascadeType.ALL)
@@ -21,4 +22,9 @@ public class Ticker extends AbstractEntity {
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "ticker")
     private Set<Transaction> transactions = new HashSet<>();
+
+    public Ticker(String tickerName, String companyName) {
+        this.tickerName = tickerName;
+        this.companyName = companyName;
+    }
 }
