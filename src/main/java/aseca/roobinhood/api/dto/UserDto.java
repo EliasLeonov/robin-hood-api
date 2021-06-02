@@ -6,8 +6,6 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.Set;
-
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
@@ -16,7 +14,9 @@ public class UserDto {
     private Long id;
     private String name;
     private String lastname;
-    private Set<StockDto> stocks;
+    private String email;
+    private String username;
+    private String role;
 
     public static UserDto from(User user) {
         return UserDto.builder()
