@@ -17,9 +17,8 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-data-jdbc'
     implementation 'org.springframework.boot:spring-boot-starter-security'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
-    implementation group: 'io.springfox', name: 'springfox-swagger2', version: '3.0.0'
-    implementation group: 'io.springfox', name: 'springfox-boot-starter', version: '3.0.0'
-    implementation group: 'io.springfox', name: 'springfox-swagger-ui', version: '3.0.0'
+    compileOnly group: 'io.springfox', name: 'springfox-swagger2', version: '2.7.0'
+    compileOnly group: 'io.springfox', name: 'springfox-swagger-ui', version: '2.7.0'
 	implementation 'io.jsonwebtoken:jjwt:0.9.1'
     implementation group: 'javax.validation', name: 'validation-api', version: '2.0.1.Final'
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
@@ -35,6 +34,6 @@ dependencies {
 //	testImplementation group: 'junit', name: 'junit', version: '4.12'
 }
 
-test {
-	useJUnitPlatform()
-}
+//test {
+//	useJUnitPlatform()
+//}
