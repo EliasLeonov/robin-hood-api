@@ -11,7 +11,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class TransactionDto {
     private TickerDto tickerDto;
-    private Long userId;
     private Long amount;
     private Long price;
 }

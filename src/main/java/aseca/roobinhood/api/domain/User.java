@@ -23,7 +23,16 @@ public class User extends AbstractEntity {
     private String username;
     private String password;
     private String role;
+    private double accountBalance;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
     private Set<Transaction> transactions = new HashSet<>();
+
+    public void addAmount(double price) {
+        accountBalance += price;
+    }
+
+    public void removeAmount(double price) {
+        accountBalance -= price;
+    }
 }
