@@ -23,7 +23,7 @@ public class User extends AbstractEntity {
     private String username;
     private String password;
     private String role;
-    private double accountBalance;
+    private Double accountBalance;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
     @Builder.Default

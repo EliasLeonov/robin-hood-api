@@ -20,4 +20,9 @@ public class UserMocking {
         return mocked;
     }
 
+    public static User generateRawUser(String userName, double initBalance) {
+        final User mocked = generateRawUser(userName);
+        mocked.setAccountBalance(initBalance);
+        return mocked;
+    }
 }

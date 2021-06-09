@@ -28,4 +28,10 @@ public class Ticker extends AbstractEntity {
         this.tickerName = tickerName;
         this.companyName = companyName;
     }
+
+    public Ticker(Long id, String tickerName, String companyName) {
+        super(id);
+        this.tickerName = tickerName;
+        this.companyName = companyName;
+    }
 }

@@ -33,13 +33,16 @@ public class UserService {
 
     public void removeAmount(double price) {
         final User user = sessionUtils.getTokenUserInformation();
-        if (user.getAccountBalance() >= price) user.removeAmount(price);
+        if (user.getAccountBalance() != null && user.getAccountBalance() >= price)
+            user.removeAmount(price);
         else throw new BadRequestException("User has no balance");
         userRepository.save(user);
     }
 
     public UserDto getUserLogged() {
         final User user = sessionUtils.getTokenUserInformation();
+        if (user.getAccountBalance() != null)
+            user.setAccountBalance(Math.round(user.getAccountBalance() * 100.0) / 100.0);
         return UserDto.from(user);
     }
 }

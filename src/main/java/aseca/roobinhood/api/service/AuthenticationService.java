@@ -23,7 +23,7 @@ public class AuthenticationService {
     private final UserRepository userRepository;
     private final JwtUtil jwtUtil;
 
-    final static int DEFAULT_USER_BALANCE = 100000;
+    final static double DEFAULT_USER_BALANCE = 100000;
 
     @Autowired
     public AuthenticationService(AuthenticationManager authenticationManager, MyUserDetailsService myUserDetailsService, UserRepository userRepository, JwtUtil jwtUtil) {
