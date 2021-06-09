@@ -16,7 +16,7 @@ public class UserDto {
     private String lastname;
     private String email;
     private String username;
-    private double accountBalance;
+    private Double accountBalance;
     private String role;
 
     public static UserDto from(User user) {
