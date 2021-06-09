@@ -24,8 +24,6 @@ public class UserController {
         return userService.getUserLogged();
     }
 
-
-
     @PostMapping("/update")
     public UserDto update(@RequestBody @Valid UserDto userDto){
         return userService.update(userDto);
