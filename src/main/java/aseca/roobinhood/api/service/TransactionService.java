@@ -40,8 +40,12 @@ public class TransactionService {
         return TransactionResponseDto.from(transaction);
     }
 
-    public List<StockInfoDto> getAllStocks() {
+    public List<StockInfoDto> getAllStocksBought() {
         final User user = sessionUtils.getTokenUserInformation();
+        return getAllStocksBoughtByUser(user);
+    }
+
+    public List<StockInfoDto> getAllStocksBoughtByUser(User user) {
         Map<String, StockInfoDto> stockInfoMap = new HashMap<>();
         final List<Transaction> transactions = transactionRepository.findAllByUserId(user.getId());
         transactions.forEach(transaction -> mapAndCalculateTransactions(stockInfoMap, transaction));

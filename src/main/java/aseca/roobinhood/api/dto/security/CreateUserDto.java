@@ -25,7 +25,6 @@ public class CreateUserDto {
                 .email(userDto.getEmail())
                 .username(userDto.getUsername())
                 .password(userDto.getPassword())
-                .accountBalance(100000)
                 .role("ROLE_USER")
                 .build();
     }

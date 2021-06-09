@@ -39,8 +39,6 @@ class CompanyControllerTest {
         CompanyDto companyDto = companies.stream().findFirst().orElseThrow(() -> new NotFoundException("Companies list is empty"));
         assertFalse(companyDto.getName().isEmpty());
         assertFalse(companyDto.getTicker().isEmpty());
-        assertFalse(companyDto.getPrice() > 0);
-        assertFalse(companyDto.getPercentage() > 0);
     }
 
 }

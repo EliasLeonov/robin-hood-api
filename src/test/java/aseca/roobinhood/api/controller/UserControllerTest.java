@@ -9,7 +9,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import static org.junit.Assert.assertEquals;
+import static org.assertj.core.api.AssertionsForInterfaceTypes.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @RunWith(SpringRunner.class)
 @ActiveProfiles("mem")
@@ -27,8 +28,7 @@ class UserControllerTest {
 
     @Test
     public void test_001_save_user() {
-        CreateUserDto createUserDto = CreateUserDto
-                .builder()
+        CreateUserDto createUserDto = CreateUserDto.builder()
                 .email("aseguramiento@calidad.com")
                 .name("Aseguramiento")
                 .lastName("Calidad")
@@ -38,10 +38,8 @@ class UserControllerTest {
 
         UserDto userDto = authenticationController.register(createUserDto);
 
-        assertEquals(createUserDto.getEmail(), userDto.getEmail());
-        assertEquals(createUserDto.getName(), userDto.getName());
-        assertEquals(createUserDto.getLastName(), userDto.getLastname());
-        assertEquals(createUserDto.getUsername(), userDto.getUsername());
+        assertThat(userDto.getEmail()).isEqualTo(createUserDto.getEmail());
+        assertThat(userDto.getUsername()).isEqualTo(createUserDto.getUsername());
     }
 
     @Test
@@ -57,8 +55,7 @@ class UserControllerTest {
 
     @Test
     public void test_003_update_user_data() {
-        CreateUserDto createUserDto = CreateUserDto
-                .builder()
+        CreateUserDto createUserDto = CreateUserDto.builder()
                 .email("aseguramiento@calidad.com")
                 .name("Aseguramiento")
                 .lastName("Calidad")

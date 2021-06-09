@@ -30,7 +30,7 @@ public class TransactionController {
 
     @GetMapping("/get-all")
     public List<StockInfoDto> getAllByUser(){
-        return transactionService.getAllStocks();
+        return transactionService.getAllStocksBought();
     }
 
 }

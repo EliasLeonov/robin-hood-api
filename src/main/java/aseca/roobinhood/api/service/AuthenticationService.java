@@ -54,6 +54,6 @@ public class AuthenticationService {
     public UserDto register(CreateUserDto userDto) {
         final User user = CreateUserDto.from(userDto);
         user.setAccountBalance(DEFAULT_USER_BALANCE);
-        return UserDto.from(userRepository.save(CreateUserDto.from(userDto)));
+        return UserDto.from(userRepository.save(user));
     }
 }
