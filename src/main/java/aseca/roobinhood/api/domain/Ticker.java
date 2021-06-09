@@ -2,12 +2,8 @@ package aseca.roobinhood.api.domain;
 
 import lombok.*;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import java.util.HashSet;
-import java.util.Set;
 
 @EqualsAndHashCode(callSuper = true)
 @AllArgsConstructor
@@ -19,15 +15,6 @@ import java.util.Set;
 public class Ticker extends AbstractEntity {
     private String tickerName;
     private String companyName;
-
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "ticker")
-    @Builder.Default
-    private Set<Transaction> transactions = new HashSet<>();
-
-    public Ticker(String tickerName, String companyName) {
-        this.tickerName = tickerName;
-        this.companyName = companyName;
-    }
 
     public Ticker(Long id, String tickerName, String companyName) {
         super(id);
