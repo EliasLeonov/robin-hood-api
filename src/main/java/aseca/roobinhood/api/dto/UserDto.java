@@ -16,10 +16,11 @@ public class UserDto {
     private String lastname;
     private String email;
     private String username;
+    private double accountBalance;
     private String role;
 
     public static UserDto from(User user) {
         return new UserDto(user.getId(), user.getName(), user.getLastname(),
-                user.getEmail(), user.getUsername(), user.getRole());
+                user.getEmail(), user.getUsername(), user.getAccountBalance(), user.getRole());
     }
 }

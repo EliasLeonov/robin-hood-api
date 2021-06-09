@@ -1,7 +1,7 @@
 package aseca.roobinhood.api.controller;
 
-import aseca.roobinhood.api.dto.security.CreateUserDto;
 import aseca.roobinhood.api.dto.UserDto;
+import aseca.roobinhood.api.dto.security.CreateUserDto;
 import aseca.roobinhood.api.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -17,6 +17,11 @@ public class UserController {
     @Autowired
     public UserController(UserService userService) {
         this.userService = userService;
+    }
+
+    @GetMapping()
+    public UserDto getUser(){
+        return userService.getUserLogged();
     }
 
     @PostMapping("/save")

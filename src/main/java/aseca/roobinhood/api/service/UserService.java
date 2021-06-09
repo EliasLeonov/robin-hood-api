@@ -43,4 +43,8 @@ public class UserService {
         userRepository.save(user);
     }
 
+    public UserDto getUserLogged() {
+        final User user = sessionUtils.getTokenUserInformation();
+        return UserDto.from(user);
+    }
 }
