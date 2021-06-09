@@ -26,6 +26,7 @@ public class User extends AbstractEntity {
     private double accountBalance;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
+    @Builder.Default
     private Set<Transaction> transactions = new HashSet<>();
 
     public void addAmount(double price) {

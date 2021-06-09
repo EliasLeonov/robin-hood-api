@@ -7,8 +7,6 @@ import aseca.roobinhood.api.dto.StockDto;
 import aseca.roobinhood.api.dto.TransactionDto;
 import aseca.roobinhood.api.exceptions.NotFoundException;
 import aseca.roobinhood.api.repository.TickerRepository;
-import aseca.roobinhood.api.repository.TransactionRepository;
-import aseca.roobinhood.api.repository.UserRepository;
 import aseca.roobinhood.api.utils.SessionUtils;
 import org.springframework.stereotype.Component;
 
@@ -17,18 +15,12 @@ import java.time.LocalDateTime;
 @Component
 public class TransactionFactory {
 
-    private final TransactionRepository repository;
     private final TickerRepository tickerRepository;
-    private final UserRepository userRepository;
     private final SessionUtils sessionUtils;
-    private final TransactionFactory transactionFactory;
 
-    public TransactionFactory(TransactionRepository repository, TickerRepository tickerRepository, UserRepository userRepository, SessionUtils sessionUtils, TransactionFactory transactionFactory) {
-        this.repository = repository;
+    public TransactionFactory(TickerRepository tickerRepository, SessionUtils sessionUtils) {
         this.tickerRepository = tickerRepository;
-        this.userRepository = userRepository;
         this.sessionUtils = sessionUtils;
-        this.transactionFactory = transactionFactory;
     }
 
     public Transaction convert(TransactionDto dto) {
