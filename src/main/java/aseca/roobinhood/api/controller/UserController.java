@@ -24,10 +24,7 @@ public class UserController {
         return userService.getUserLogged();
     }
 
-    @PostMapping("/save")
-    public UserDto save(@RequestBody @Valid CreateUserDto userDto){
-        return userService.save(userDto);
-    }
+
 
     @PostMapping("/update")
     public UserDto update(@RequestBody @Valid UserDto userDto){
