@@ -12,15 +12,16 @@ import lombok.NoArgsConstructor;
 @Builder
 public class CreateUserDto {
     private String name;
-    private String lastname;
+    private String firstName;
+    private String lastName;
     private String email;
     private String username;
     private String password;
 
     public static User from(CreateUserDto userDto) {
         return User.builder()
-                .name(userDto.getName())
-                .lastname(userDto.getLastname())
+                .firstName(userDto.getFirstName())
+                .lastName(userDto.getLastName())
                 .email(userDto.getEmail())
                 .username(userDto.getUsername())
                 .password(userDto.getPassword())

@@ -1,5 +1,6 @@
 package aseca.roobinhood.api.service;
 
+import aseca.roobinhood.api.domain.User;
 import aseca.roobinhood.api.dto.UserDto;
 import aseca.roobinhood.api.dto.security.AuthenticationRequestDto;
 import aseca.roobinhood.api.dto.security.AuthenticationResponseDto;
@@ -21,6 +22,8 @@ public class AuthenticationService {
     private final MyUserDetailsService myUserDetailsService;
     private final UserRepository userRepository;
     private final JwtUtil jwtUtil;
+
+    final static int DEFAULT_USER_BALANCE = 100000;
 
     @Autowired
     public AuthenticationService(AuthenticationManager authenticationManager, MyUserDetailsService myUserDetailsService, UserRepository userRepository, JwtUtil jwtUtil) {
@@ -49,6 +52,8 @@ public class AuthenticationService {
     }
 
     public UserDto register(CreateUserDto userDto) {
+        final User user = CreateUserDto.from(userDto);
+        user.setAccountBalance(DEFAULT_USER_BALANCE);
         return UserDto.from(userRepository.save(CreateUserDto.from(userDto)));
     }
 }

@@ -10,8 +10,8 @@ public class UserFactory {
 
     public User createUser(CreateUserDto userDto){
         return User.builder()
-                .name(userDto.getName())
-                .lastname(userDto.getLastname())
+                .firstName(userDto.getFirstName())
+                .lastName(userDto.getLastName())
                 .email(userDto.getEmail())
                 .username(userDto.getUsername())
                 .password(userDto.getPassword())
@@ -21,8 +21,8 @@ public class UserFactory {
 
     public User updateUser(UserDto userDto){
         return User.builder()
-                .name(userDto.getName())
-                .lastname(userDto.getLastname())
+                .firstName(userDto.getName())
+                .lastName(userDto.getLastname())
                 .email(userDto.getEmail())
                 .username(userDto.getUsername())
                 .role(userDto.getRole())

@@ -20,7 +20,7 @@ public class UserDto {
     private String role;
 
     public static UserDto from(User user) {
-        return new UserDto(user.getId(), user.getName(), user.getLastname(),
+        return new UserDto(user.getId(), user.getFirstName(), user.getLastName(),
                 user.getEmail(), user.getUsername(), user.getAccountBalance(), user.getRole());
     }
 }
