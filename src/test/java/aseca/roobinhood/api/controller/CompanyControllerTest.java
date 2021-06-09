@@ -12,7 +12,8 @@ import org.springframework.test.context.junit4.SpringRunner;
 import java.io.IOException;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @RunWith(SpringRunner.class)
 @ActiveProfiles("mem")
@@ -38,8 +39,8 @@ class CompanyControllerTest {
         CompanyDto companyDto = companies.stream().findFirst().orElseThrow(() -> new NotFoundException("Companies list is empty"));
         assertFalse(companyDto.getName().isEmpty());
         assertFalse(companyDto.getTicker().isEmpty());
-        assertFalse(companyDto.getPrice().isNaN());
-        assertFalse(companyDto.getPercentage().isNaN());
+        assertFalse(companyDto.getPrice() > 0);
+        assertFalse(companyDto.getPercentage() > 0);
     }
 
 }
