@@ -24,7 +24,7 @@ public class TransactionFactory {
     }
 
     public Transaction convert(TransactionDto dto) {
-        final User user = sessionUtils.getTokenUserInformation();
+        final User user = sessionUtils.findLogged();
         final Ticker ticker = tickerRepository.findById(dto.getTickerDto().getId()).orElseThrow(() -> new NotFoundException("Ticker does not found"));
         return new Transaction(ticker, user, dto.getPrice(), dto.getAmount(), LocalDateTime.now());
     }

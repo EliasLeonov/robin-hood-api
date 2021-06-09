@@ -21,6 +21,7 @@ public class Ticker extends AbstractEntity {
     private String companyName;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "ticker")
+    @Builder.Default
     private Set<Transaction> transactions = new HashSet<>();
 
     public Ticker(String tickerName, String companyName) {

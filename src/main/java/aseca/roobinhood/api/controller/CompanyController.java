@@ -22,7 +22,7 @@ public class CompanyController {
     }
 
     @GetMapping()
-    public List<CompanyDto> getCompanyById() throws IOException {
+    public List<CompanyDto> getAllCompanies() throws IOException {
         return companyService.getAllCompanies();
     }
 }

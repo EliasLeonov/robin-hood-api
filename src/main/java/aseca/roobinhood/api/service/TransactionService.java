@@ -38,7 +38,7 @@ public class TransactionService {
     }
 
     public List<StockDto> getAllStocks() {
-        final User user = sessionUtils.getTokenUserInformation();
+        final User user = sessionUtils.findLogged();
         Map<String, StockDto> map = new HashMap<>();
         final List<Transaction> transactions = transactionRepository.findAllByUserId(user.getId());
         transactions.forEach(transaction -> {
