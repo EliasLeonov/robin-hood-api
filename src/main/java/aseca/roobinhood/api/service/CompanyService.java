@@ -1,6 +1,8 @@
 package aseca.roobinhood.api.service;
 
+import aseca.roobinhood.api.domain.Ticker;
 import aseca.roobinhood.api.dto.CompanyDto;
+import aseca.roobinhood.api.repository.TickerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import yahoofinance.Stock;
@@ -18,22 +20,23 @@ import java.util.stream.Collectors;
 public class CompanyService {
 
     private final StockScrapperService stockScrapperService;
+    private final TickerRepository tickerRepository;
 
     @Autowired
-    public CompanyService(StockScrapperService stockScrapperService) {
+    public CompanyService(StockScrapperService stockScrapperService, TickerRepository tickerRepository) {
         this.stockScrapperService = stockScrapperService;
-    }
-
-    public CompanyDto getCompanyById(Long id) {
-        return CompanyDto.builder().build();
+        this.tickerRepository = tickerRepository;
     }
 
     public List<CompanyDto> getAllCompanies() throws IOException {
-        return SP500Companies().stream().map(ticker -> {
+        final List<Ticker> tickers = SP500Companies().stream().map(ticker ->
+                tickerRepository.findByTickerName(ticker.getTickerName()).orElseGet(() -> tickerRepository.save(ticker)))
+                .collect(Collectors.toList());
+        return tickers.stream().map(ticker -> {
             try {
-                final Stock stock = stockScrapperService.getStock(ticker);
+                final Stock stock = stockScrapperService.getStock(ticker.getTickerName());
                 final StockQuote quote = stock.getQuote();
-                return new CompanyDto(ticker, stock.getName(), quote.getPrice().doubleValue(), quote.getChangeInPercent().doubleValue());
+                return new CompanyDto(ticker.getId(), ticker.getTickerName(), stock.getName(), quote.getPrice().doubleValue(), quote.getChangeInPercent().doubleValue());
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -41,13 +44,13 @@ public class CompanyService {
         }).filter(Objects::nonNull).collect(Collectors.toList());
     }
 
-    public List<String> SP500Companies() throws IOException {
-        List<String> indexes = new ArrayList<>();
+    public List<Ticker> SP500Companies() throws IOException {
+        List<Ticker> indexes = new ArrayList<>();
         BufferedReader csvReader = new BufferedReader(new FileReader("src/main/resources/sp500_tickers.csv"));
         String row;
         while ((row = csvReader.readLine()) != null) {
             String[] data = row.split(",");
-            indexes.add(data[0]);
+            indexes.add(new Ticker(data[0], data[1]));
         }
         csvReader.close();
         return indexes;

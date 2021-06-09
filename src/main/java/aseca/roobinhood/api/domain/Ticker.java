@@ -2,7 +2,10 @@ package aseca.roobinhood.api.domain;
 
 import lombok.*;
 
-import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -16,9 +19,6 @@ import java.util.Set;
 public class Ticker extends AbstractEntity {
     private String tickerName;
     private String companyName;
-
-    @ManyToOne(cascade = CascadeType.ALL)
-    private Broker broker;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "ticker")
     private Set<Transaction> transactions = new HashSet<>();
