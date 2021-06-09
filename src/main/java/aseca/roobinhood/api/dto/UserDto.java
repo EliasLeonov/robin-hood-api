@@ -19,10 +19,7 @@ public class UserDto {
     private String role;
 
     public static UserDto from(User user) {
-        return UserDto.builder()
-                .id(user.getId())
-                .name(user.getName())
-                .lastname(user.getLastname())
-                .build();
+        return new UserDto(user.getId(), user.getName(), user.getLastname(),
+                user.getEmail(), user.getUsername(), user.getRole());
     }
 }
