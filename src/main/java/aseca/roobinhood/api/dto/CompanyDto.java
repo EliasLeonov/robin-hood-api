@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Builder
 public class CompanyDto {
+    private Long id;
     private String ticker;
     private String name;
     private Double price;

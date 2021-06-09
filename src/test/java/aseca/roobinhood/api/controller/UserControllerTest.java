@@ -1,5 +1,6 @@
 package aseca.roobinhood.api.controller;
 
+import aseca.roobinhood.api.domain.Ticker;
 import aseca.roobinhood.api.dto.CompanyDto;
 import aseca.roobinhood.api.service.CompanyService;
 import aseca.roobinhood.api.service.TransactionService;
@@ -12,6 +13,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RunWith(SpringRunner.class)
 @ActiveProfiles("mem")
@@ -40,7 +42,7 @@ class UserControllerTest {
 
     @Test
     public void test_004_create_company() throws IOException {
-        final List<String> allCompanies = companyService.SP500Companies();
+        final List<String> allCompanies = companyService.SP500Companies().stream().map(Ticker::getTickerName).collect(Collectors.toList());
         allCompanies.forEach(System.out::println);
     }
 
