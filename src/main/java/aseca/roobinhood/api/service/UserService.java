@@ -2,7 +2,6 @@ package aseca.roobinhood.api.service;
 
 import aseca.roobinhood.api.domain.User;
 import aseca.roobinhood.api.dto.UserDto;
-import aseca.roobinhood.api.dto.security.CreateUserDto;
 import aseca.roobinhood.api.exceptions.BadRequestException;
 import aseca.roobinhood.api.factory.UserFactory;
 import aseca.roobinhood.api.repository.UserRepository;
@@ -21,10 +20,6 @@ public class UserService {
         this.userRepository = userRepository;
         this.userFactory = userFactory;
         this.sessionUtils = sessionUtils;
-    }
-
-    public UserDto save(CreateUserDto userDto) {
-        return UserDto.from(userRepository.save(userFactory.createUser(userDto)));
     }
 
     public UserDto update(UserDto userDto) {

@@ -13,6 +13,6 @@ public class CompanyDto {
     private Long id;
     private String ticker;
     private String name;
-    private Double price;
-    private Double percentage;
+    private double price;
+    private double percentage;
 }

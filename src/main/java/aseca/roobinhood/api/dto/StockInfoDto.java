@@ -9,9 +9,12 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Data
 @Builder
-public class StockDto {
-    private double value;
+public class StockInfoDto {
+    private double actualTotal;
     private double amount;
     private String tickerName;
     private String companyName;
+    private double purchasePrice;
+    private double actualPrice;
+    private double result;
 }

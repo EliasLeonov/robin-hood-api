@@ -17,8 +17,8 @@ import java.util.Set;
 @Builder
 @Table(name = "user_data")
 public class User extends AbstractEntity {
-    private String name;
-    private String lastname;
+    private String firstName;
+    private String lastName;
     private String email;
     private String username;
     private String password;
