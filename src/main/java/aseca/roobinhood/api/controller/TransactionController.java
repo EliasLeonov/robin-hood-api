@@ -1,6 +1,6 @@
 package aseca.roobinhood.api.controller;
 
-import aseca.roobinhood.api.dto.StockDto;
+import aseca.roobinhood.api.dto.StockInfoDto;
 import aseca.roobinhood.api.dto.TransactionDto;
 import aseca.roobinhood.api.dto.TransactionResponseDto;
 import aseca.roobinhood.api.service.TransactionService;
@@ -29,8 +29,8 @@ public class TransactionController {
     }
 
     @GetMapping("/get-all")
-    public List<StockDto> getAllByUser(){
-        return transactionService.getAllStocks();
+    public List<StockInfoDto> getAllByUser(){
+        return transactionService.getAllStocksBought();
     }
 
 }

@@ -1,5 +1,6 @@
 package aseca.roobinhood.api.controller;
 
+import aseca.roobinhood.api.dto.UserDto;
 import aseca.roobinhood.api.dto.security.AuthenticationRequestDto;
 import aseca.roobinhood.api.dto.security.CreateUserDto;
 import aseca.roobinhood.api.service.AuthenticationService;
@@ -30,7 +31,7 @@ public class AuthenticationController {
     }
 
     @PostMapping("/register")
-    public void register(@RequestBody CreateUserDto user) {
-        authenticationService.register(user);
+    public UserDto register(@RequestBody CreateUserDto user) {
+        return authenticationService.register(user);
     }
 }

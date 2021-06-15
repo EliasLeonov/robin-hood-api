@@ -3,7 +3,7 @@ package aseca.roobinhood.api.factory;
 import aseca.roobinhood.api.domain.Ticker;
 import aseca.roobinhood.api.domain.Transaction;
 import aseca.roobinhood.api.domain.User;
-import aseca.roobinhood.api.dto.StockDto;
+import aseca.roobinhood.api.dto.StockInfoDto;
 import aseca.roobinhood.api.dto.TransactionDto;
 import aseca.roobinhood.api.exceptions.NotFoundException;
 import aseca.roobinhood.api.repository.TickerRepository;
@@ -29,9 +29,9 @@ public class TransactionFactory {
         return new Transaction(ticker, user, dto.getPrice(), dto.getAmount(), LocalDateTime.now());
     }
 
-    public StockDto getStockByTransaction(Transaction transaction) {
+    public StockInfoDto getStockByTransaction(Transaction transaction) {
         final Ticker ticker = transaction.getTicker();
-        return new StockDto(transaction.getPrice(), transaction.getAmount(), ticker.getTickerName(), ticker.getCompanyName());
+        return new StockInfoDto(transaction.getAmount() * transaction.getPrice(), transaction.getAmount(), ticker.getTickerName(), ticker.getCompanyName(), transaction.getPrice(), 0, 0);
     }
 
 }

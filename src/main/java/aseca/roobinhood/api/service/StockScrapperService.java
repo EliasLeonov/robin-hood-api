@@ -13,4 +13,8 @@ public class StockScrapperService {
         return YahooFinance.get(companyTicker);
     }
 
+    public double getPrice(String companyTicker) throws IOException {
+        return getStock(companyTicker).getQuote().getPrice().doubleValue();
+    }
+
 }

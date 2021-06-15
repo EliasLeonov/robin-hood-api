@@ -2,7 +2,6 @@ package aseca.roobinhood.api.service;
 
 import aseca.roobinhood.api.domain.User;
 import aseca.roobinhood.api.dto.UserDto;
-import aseca.roobinhood.api.dto.security.CreateUserDto;
 import aseca.roobinhood.api.exceptions.BadRequestException;
 import aseca.roobinhood.api.factory.UserFactory;
 import aseca.roobinhood.api.repository.UserRepository;
@@ -23,10 +22,6 @@ public class UserService {
         this.sessionUtils = sessionUtils;
     }
 
-    public UserDto save(CreateUserDto userDto) {
-        return UserDto.from(userRepository.save(userFactory.createUser(userDto)));
-    }
-
     public UserDto update(UserDto userDto) {
         return UserDto.from(userRepository.save(userFactory.updateUser(userDto)));
     }
@@ -38,13 +33,16 @@ public class UserService {
 
     public void removeAmount(double price) {
         final User user = sessionUtils.getTokenUserInformation();
-        if (user.getAccountBalance() >= price) user.removeAmount(price);
+        if (user.getAccountBalance() != null && user.getAccountBalance() >= price)
+            user.removeAmount(price);
         else throw new BadRequestException("User has no balance");
         userRepository.save(user);
     }
 
     public UserDto getUserLogged() {
         final User user = sessionUtils.getTokenUserInformation();
+        if (user.getAccountBalance() != null)
+            user.setAccountBalance(Math.round(user.getAccountBalance() * 100.0) / 100.0);
         return UserDto.from(user);
     }
 }
