@@ -2,12 +2,17 @@ package aseca.roobinhood.api.controller;
 
 import aseca.roobinhood.api.dto.UserDto;
 import aseca.roobinhood.api.dto.security.CreateUserDto;
+import aseca.roobinhood.api.repository.UserRepository;
+import aseca.roobinhood.api.utils.UserMocking;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
+
+import java.util.Optional;
 
 import static org.assertj.core.api.AssertionsForInterfaceTypes.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -18,11 +23,13 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 class UserControllerTest {
 
     private final UserController controller;
+    private final UserRepository repository;
     private final AuthenticationController authenticationController;
 
     @Autowired
-    UserControllerTest(UserController controller, AuthenticationController authenticationController) {
+    UserControllerTest(UserController controller, UserRepository repository, AuthenticationController authenticationController) {
         this.controller = controller;
+        this.repository = repository;
         this.authenticationController = authenticationController;
     }
 
@@ -78,4 +85,32 @@ class UserControllerTest {
         assertEquals(newUserDto.getLastname(), userUpdated.getLastname());
         assertEquals(newUserDto.getUsername(), userUpdated.getUsername());
     }
+
+    @Test
+    @WithMockUser("asecal")
+    public void test_004_getUserLogged(){
+        repository.save(UserMocking.generateRawUser("asecal"));
+        UserDto userDto = controller.getUser();
+        assertThat(userDto).isNotNull();
+        assertThat(userDto.getUsername()).isEqualTo("asecal");
+    }
+
+    @Test
+    public void test_005_deleteUser(){
+
+        CreateUserDto createUserDto = CreateUserDto.builder()
+                .email("aseguramiento@calidad.com")
+                .name("Aseguramiento")
+                .lastName("Calidad")
+                .password("Aseca2021")
+                .username("aseca")
+                .build();
+
+        UserDto userDto = authenticationController.register(createUserDto);
+        controller.delete(userDto.getId());
+
+        assertThat(repository.findById(userDto.getId())).isEqualTo(Optional.empty());
+
+    }
+
 }

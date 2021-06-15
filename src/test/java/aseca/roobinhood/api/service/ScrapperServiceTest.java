@@ -17,6 +17,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 @SpringBootTest
 public class ScrapperServiceTest {
 
+
     private final StockScrapperService stockScrapperService;
 
     @Autowired
