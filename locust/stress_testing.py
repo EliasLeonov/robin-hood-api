@@ -1,7 +1,7 @@
+import random
+from locust import HttpUser, task, between
 from random import choice
 from string import ascii_lowercase
-
-from locust import HttpUser, task, between
 
 
 class User(HttpUser):
@@ -57,4 +57,12 @@ class User(HttpUser):
             json=post_body,
             headers={"authorization": "Bearer " + self.token},
             name="Create AAPL Transactions"
+        )
+
+    @task
+    def get_stock_listings(self):
+        self.client.get(
+            url="/companies",
+            headers={"authorization": "Bearer " + self.token},
+            name="Get Stocks Listings"
         )
