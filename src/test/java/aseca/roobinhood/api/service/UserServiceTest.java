@@ -1,9 +1,12 @@
 package aseca.roobinhood.api.service;
 
+import aseca.roobinhood.api.domain.User;
 import aseca.roobinhood.api.dto.UserDto;
 import aseca.roobinhood.api.dto.security.CreateUserDto;
+import aseca.roobinhood.api.exceptions.BadRequestException;
 import aseca.roobinhood.api.repository.UserRepository;
 import aseca.roobinhood.api.utils.UserMocking;
+import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +18,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import java.util.Optional;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 @RunWith(SpringRunner.class)
 @ActiveProfiles("mem")
@@ -25,12 +28,14 @@ class UserServiceTest {
     private final UserService service;
     private final UserRepository repository;
     private final AuthenticationService authenticationService;
+    private final UserRepository userRepository;
 
     @Autowired
-    UserServiceTest(UserService service, UserRepository repository, AuthenticationService authenticationService) {
+    UserServiceTest(UserService service, UserRepository repository, AuthenticationService authenticationService, UserRepository userRepository) {
         this.service = service;
         this.repository = repository;
         this.authenticationService = authenticationService;
+        this.userRepository = userRepository;
     }
 
     @Test
@@ -112,4 +117,26 @@ class UserServiceTest {
         assertThat(repository.findById(userDto.getId())).isEqualTo(Optional.empty());
 
     }
+
+    @Test
+    @WithMockUser("test006")
+    public void test_006_removeAmount(){
+        Double initBalance = 10000000.0;
+        userRepository.save(UserMocking.generateRawUser("test006", initBalance));
+        Double amountRemoved = 20000.0;
+        service.removeAmount(amountRemoved);
+        Double actualBalance = initBalance - amountRemoved;
+        assertEquals(service.getUserLogged().getAccountBalance(), actualBalance);
+    }
+
+    @Test
+    @WithMockUser("test007")
+    public void test_007_removeAmountError(){
+        Double initBalance = 20000.0;
+        userRepository.save(UserMocking.generateRawUser("test006", initBalance));
+        Double amountRemoved = 10000000.0;
+        Assertions.assertThatThrownBy(() ->
+                service.removeAmount(amountRemoved));
+    }
+
 }
