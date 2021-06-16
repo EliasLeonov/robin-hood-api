@@ -119,10 +119,10 @@ class UserServiceTest {
     }
 
     @Test
-    @WithMockUser("test006")
+    @WithMockUser("test0062")
     public void test_006_removeAmount(){
         Double initBalance = 10000000.0;
-        userRepository.save(UserMocking.generateRawUser("test006", initBalance));
+        userRepository.save(UserMocking.generateRawUser("test0062", initBalance));
         Double amountRemoved = 20000.0;
         service.removeAmount(amountRemoved);
         Double actualBalance = initBalance - amountRemoved;
