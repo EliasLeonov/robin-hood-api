@@ -129,10 +129,10 @@ class TransactionServiceTest {
 
     @Test
     @Transactional
-    @WithMockUser("aseca")
+    @WithMockUser("aseca5")
     public void test_008_buyMultipleStocks() {
 
-        userRepository.save(UserMocking.generateRawUser("aseca", 10000000.0));
+        userRepository.save(UserMocking.generateRawUser("aseca5", 10000000.0));
 
         Ticker tickerApple = tickerRepository.save(new Ticker("AAPL", "Apple"));
         double amount = 10;
@@ -148,9 +148,4 @@ class TransactionServiceTest {
         assertThat(allStockBought.size()).isEqualTo(2);
 
     }
-
-//    @Test
-//    @Transactional
-//    @WithMockUser("test")
-//    public void test_009_
 }

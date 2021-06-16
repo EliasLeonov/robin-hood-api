@@ -1,4 +1,4 @@
-package aseca.roobinhood.api.controller;
+package aseca.roobinhood.api.service;
 
 import aseca.roobinhood.api.dto.UserDto;
 import aseca.roobinhood.api.dto.security.CreateUserDto;
@@ -14,23 +14,23 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.Optional;
 
-import static org.assertj.core.api.AssertionsForInterfaceTypes.assertThat;
+import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @RunWith(SpringRunner.class)
 @ActiveProfiles("mem")
 @SpringBootTest
-class UserControllerTest {
+class UserServiceTest {
 
-    private final UserController controller;
+    private final UserService service;
     private final UserRepository repository;
-    private final AuthenticationController authenticationController;
+    private final AuthenticationService authenticationService;
 
     @Autowired
-    UserControllerTest(UserController controller, UserRepository repository, AuthenticationController authenticationController) {
-        this.controller = controller;
+    UserServiceTest(UserService service, UserRepository repository, AuthenticationService authenticationService) {
+        this.service = service;
         this.repository = repository;
-        this.authenticationController = authenticationController;
+        this.authenticationService = authenticationService;
     }
 
     @Test
@@ -43,7 +43,7 @@ class UserControllerTest {
                 .username("aseca")
                 .build();
 
-        UserDto userDto = authenticationController.register(createUserDto);
+        UserDto userDto = authenticationService.register(createUserDto);
 
         assertThat(userDto.getEmail()).isEqualTo(createUserDto.getEmail());
         assertThat(userDto.getUsername()).isEqualTo(createUserDto.getUsername());
@@ -53,7 +53,7 @@ class UserControllerTest {
     public void test_002_save_user_without_data() {
         CreateUserDto createUserDto = CreateUserDto.builder().build();
 
-        UserDto userDto = authenticationController.register(createUserDto);
+        UserDto userDto = authenticationService.register(createUserDto);
         assertEquals(createUserDto.getEmail(), userDto.getEmail());
         assertEquals(createUserDto.getName(), userDto.getName());
         assertEquals(createUserDto.getLastName(), userDto.getLastname());
@@ -70,7 +70,7 @@ class UserControllerTest {
                 .username("aseca")
                 .build();
 
-        UserDto userDto = authenticationController.register(createUserDto);
+        UserDto userDto = authenticationService.register(createUserDto);
         UserDto newUserDto = UserDto.builder()
                 .id(userDto.getId())
                 .email(userDto.getEmail())
@@ -78,7 +78,7 @@ class UserControllerTest {
                 .lastname(userDto.getLastname())
                 .username(userDto.getUsername())
                 .build();
-        UserDto userUpdated = controller.update(newUserDto);
+        UserDto userUpdated = service.update(newUserDto);
 
         assertEquals(newUserDto.getEmail(), userUpdated.getEmail());
         assertEquals(newUserDto.getName(), userUpdated.getName());
@@ -90,7 +90,7 @@ class UserControllerTest {
     @WithMockUser("asecal")
     public void test_004_getUserLogged(){
         repository.save(UserMocking.generateRawUser("asecal"));
-        UserDto userDto = controller.getUser();
+        UserDto userDto = service.getUserLogged();
         assertThat(userDto).isNotNull();
         assertThat(userDto.getUsername()).isEqualTo("asecal");
     }
@@ -106,11 +106,10 @@ class UserControllerTest {
                 .username("aseca")
                 .build();
 
-        UserDto userDto = authenticationController.register(createUserDto);
-        controller.delete(userDto.getId());
+        UserDto userDto = authenticationService.register(createUserDto);
+        service.delete(userDto.getId());
 
         assertThat(repository.findById(userDto.getId())).isEqualTo(Optional.empty());
 
     }
-
 }

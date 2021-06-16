@@ -1,8 +1,8 @@
-package aseca.roobinhood.api.controller;
+package aseca.roobinhood.api.service;
 
 import aseca.roobinhood.api.dto.CompanyDto;
 import aseca.roobinhood.api.exceptions.NotFoundException;
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -18,27 +18,26 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 @RunWith(SpringRunner.class)
 @ActiveProfiles("mem")
 @SpringBootTest
-class CompanyControllerTest {
+class CompanyServiceTest {
 
-    private final CompanyController companyController;
+    private final CompanyService companyService;
 
     @Autowired
-    CompanyControllerTest(CompanyController companyController) {
-        this.companyController = companyController;
+    CompanyServiceTest(CompanyService companyService) {
+        this.companyService = companyService;
     }
 
     @Test
     public void test001GetAllCompanies() throws IOException {
-        List<CompanyDto> companies = companyController.getAllCompanies();
+        List<CompanyDto> companies = companyService.getAllCompanies();
         assertTrue(companies.size() > 0);
     }
 
     @Test
     public void test002GetAllCompanies() throws IOException {
-        List<CompanyDto> companies = companyController.getAllCompanies();
+        List<CompanyDto> companies = companyService.getAllCompanies();
         CompanyDto companyDto = companies.stream().findFirst().orElseThrow(() -> new NotFoundException("Companies list is empty"));
         assertFalse(companyDto.getName().isEmpty());
         assertFalse(companyDto.getTicker().isEmpty());
     }
-
 }
