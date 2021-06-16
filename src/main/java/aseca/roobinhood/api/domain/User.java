@@ -1,23 +1,31 @@
 package aseca.roobinhood.api.domain;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
-import javax.persistence.*;
-import java.util.List;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 
+@EqualsAndHashCode(callSuper = true)
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
 @Entity
-@Table(name = "RHUser")
-public class User {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private String id;
-    private String name;
-    private String lastname;
-    @OneToMany
-    private List<Stock> stocks;
+@Builder
+@Table(name = "user_data")
+public class User extends AbstractEntity {
+    private String firstName;
+    private String lastName;
+    private String email;
+    private String username;
+    private String password;
+    private String role;
+    private Double accountBalance;
+
+    public void addAmount(double price) {
+        accountBalance += price;
+    }
+
+    public void removeAmount(double price) {
+        accountBalance -= price;
+    }
 }
