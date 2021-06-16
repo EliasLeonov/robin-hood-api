@@ -6,9 +6,9 @@ server:
 spring:
   jpa:
     hibernate:
-      ddl-auto: create-drop
+      ddl-auto: update
     database: postgresql
-    show-sql: true
+    show-sql: false
     generate-ddl: true
 
   datasource:

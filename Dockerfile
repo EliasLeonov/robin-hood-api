@@ -4,7 +4,7 @@ COPY . /home/gradle/src/
 WORKDIR /home/gradle/src
 RUN gradle assemble
 
-FROM openjdk:11-jre-slim
+FROM openjdk:11
 
 EXPOSE 8080
 RUN mkdir /app

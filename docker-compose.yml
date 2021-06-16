@@ -10,6 +10,11 @@ services:
       POSTGRES_USER: robinhoodAseca
       POSTGRES_PASSWORD: robinhood
       POSTGRES_DB: robinhood
+    deploy:
+      resources:
+        limits:
+          cpus: '1'
+          memory: 512M
     volumes:
       - robin_data:/var/lib/postgresql/data
 

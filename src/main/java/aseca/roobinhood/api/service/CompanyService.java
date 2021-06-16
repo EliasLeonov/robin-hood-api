@@ -3,6 +3,7 @@ package aseca.roobinhood.api.service;
 import aseca.roobinhood.api.domain.Ticker;
 import aseca.roobinhood.api.dto.CompanyDto;
 import aseca.roobinhood.api.repository.TickerRepository;
+import aseca.roobinhood.api.utils.CompanyUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import yahoofinance.Stock;
@@ -28,8 +29,8 @@ public class CompanyService {
         this.tickerRepository = tickerRepository;
     }
 
-    public List<CompanyDto> getAllCompanies() throws IOException {
-        final List<Ticker> tickers = SP500Companies().stream().map(ticker ->
+    public List<CompanyDto> getAllCompanies() {
+        final List<Ticker> tickers = createTickers().stream().map(ticker ->
                 tickerRepository.findByTickerName(ticker.getTickerName()).orElseGet(() -> tickerRepository.save(ticker)))
                 .collect(Collectors.toList());
         return tickers.stream().map(ticker -> {
@@ -46,7 +47,7 @@ public class CompanyService {
 
     public List<Ticker> SP500Companies() throws IOException {
         List<Ticker> indexes = new ArrayList<>();
-        BufferedReader csvReader = new BufferedReader(new FileReader("src/main/resources/sp500_tickers.csv"));
+        BufferedReader csvReader = new BufferedReader(new FileReader("src/main/resources/tickers/sp500_tickers.csv"));
         String row;
         while ((row = csvReader.readLine()) != null) {
             String[] data = row.split(",");
@@ -54,5 +55,9 @@ public class CompanyService {
         }
         csvReader.close();
         return indexes;
+    }
+
+    private List<Ticker> createTickers() {
+        return CompanyUtils.COMPANIES_TICKERS;
     }
 }
